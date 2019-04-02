@@ -1,0 +1,94 @@
+.menu-ul {
+
+    list-style-type: none;
+    margin: 0px;
+    float: right;
+    margin-right: 20px;
+
+}
+
+.menu-ul li {
+
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 15px;
+}
+
+.menu-text {
+
+    list-style-type: none;
+    margin: 0px;
+    float: left;
+    padding-left: 5px;
+    font-family: 'Roboto-Regular', 'Roboto';
+}
+
+.notification {
+
+    padding-top: 5px;
+    padding-right: 5px;
+}
+.text_notification{
+    list-style-type: none;
+    padding-right: 1095px;
+    font-family: 'Roboto-Regular', 'Roboto';
+    font-weight: 400;
+    font-size: unset;
+    margin: 0px;
+
+}
+
+
+.logo {
+
+    padding-top: 5px;
+    padding-right: 5px;
+    width: 22px;
+    height: 22px;
+}
+
+.promo-text {
+    width: 100px;
+}
+
+.header-color {
+    background-color: rgba(0, 122, 180, 1);;
+    height: 38px;
+}
+
+.header-color-text {
+    background-color: rgba(0, 122, 180, 1);;
+    padding: 10px;
+}
+
+.home-color {
+    background-color: white;
+}
+
+.delete-promo {
+    border-block-start-color: unset;
+    border-style: unset;
+}
+
+.edit-promo {
+    border-block-start-color: unset;
+    border-style: unset;
+}
+
+.add-promo {
+    border-block-start-color: unset;
+    border-style: unset;
+}
+
+
+/*rt-resizable-header -sort-asc:after {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    content : ' ';
+    border-bottom: 20px solid #000;
+}*/
+ /*.rt-th.-sort-desc, .ReactTable .rt-thead .rt-td.-sort-desc {
+    box-shadow: none;
+}*/

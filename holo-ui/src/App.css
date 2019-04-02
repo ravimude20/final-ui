@@ -1,0 +1,183 @@
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    animation: infinite 20s linear;
+    height: 40vmin;
+    pointer-events: none;
+}
+
+.App__Aside {
+    width: 50%;
+    background-color: white;
+}
+
+.App-header {
+    background-color: white;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-left: 10px;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/*
+.FormCenter {
+  margin-bottom: 100px;
+
+}*/
+
+.FormField {
+    margin-bottom: 10px;
+}
+
+.FormField {
+    margin-bottom: 10px;
+}
+
+.FormField__Label {
+    display: inline;
+    width: 50px;
+    padding-top: 10px;
+    text-transform: initial;
+    font-size: .7em;
+    margin-right: 100px;
+    color: black;
+    text-align: left;
+    font-family: 'Roboto-Medium', 'Roboto Medium', 'Roboto';
+}
+
+.FormField__Input {
+    width: 100%;
+    background-color: hsl(0, 0%, 80%);
+    color: black;
+    outline: none;
+    border-radius: 4px;
+    border: white;
+    font-size: 15px;
+    font-weight: 300;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    margin-right: 480px;
+}
+
+.FormField__Input::placeholder {
+
+    margin-right: 480px;
+    color: white;
+}
+
+.FormField__Button {
+    background-color: #3399ff;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 10px 10px;
+    margin-left: 300px;
+    font-size: .8em;
+    font-weight: 500;
+}
+
+.FormField__Link {
+    color: #66707D;
+    text-decoration: none;
+    display: inline-block;
+    border-bottom: 1.5px solid #225E62;
+    padding-bottom: 5px;
+}
+
+.FormField__CheckboxLabel {
+    color: #646F7D;
+    font-size: .20em;
+}
+
+.FormField__Checkbox {
+    position: relative;
+    top: 10px;
+}
+
+.FormField__TermsLink {
+    color: white;
+    border-bottom: 1px solid #199087;
+    text-decoration: none;
+    display: inline-block;
+    padding-bottom: 2px;
+    margin-left: 5px;
+}
+
+.Text_Box {
+    padding-left: 10px;
+}
+
+.Right_FormField_CancelButton {
+    background-color: #3399ff;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 10px 10px;
+    margin-left: 300px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.Right_FormField_ApplyButton {
+    background-color: #3399ff;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 10px 10px;
+    margin-left: 3px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.TextBox {
+    padding-left: 10px;
+    margin-right: 480px;
+    margin-left: -10px;
+    font-size: large;
+}
+
+.Placeholder_Text {
+    padding-left: 10px;
+    margin-right: 480px;
+    margin-left: 0px;
+    height: 35px;
+    width: 400px;
+    background-color: white;
+    font-size: initial;
+
+}
+
+.FormField_Preview {
+    display: inline;
+    width: 50px;
+    padding-top: 10px;
+    text-transform: initial;
+    font-size: .7em;
+    margin-right: 500px;
+    margin-left: 450px;
+    color: black;
+}
