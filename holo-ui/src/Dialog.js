@@ -22,21 +22,34 @@ let dialogStyles = {
 }
 
 class Dialog extends Component {
-    state = {
-        selectedOption: null,
-        newPosts: [],
-        newData:[]
-    }
 
     constructor(props) {
         super(props);
-        this.handleClickOnSubmit = this.handleClickOnSubmit.bind(this);
-        this.state = {isOpen: false};
+
+        this.initialState= {
+
+            offerText : '',
+
+            template : '',
+            promotionText:'',
+
+            selectedProduct: null,
+            isOpen: false
+
+        }
+        // this.setState(this.initialState);
+        this.state = this.initialState;
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleChangeTemplate = this.handleChangeTemplate.bind(this);
+
     }
 
     toggleModal = () => {
+        const  isopen = this.state.isOpen;
+
         this.setState({
-            isOpen: !this.state.isOpen
+            isOpen:false
         });
     }
 
@@ -45,66 +58,33 @@ class Dialog extends Component {
         this.getTemplates();
     }
 
-    /*handleClickOnSubmit = e => {
+    handleSubmit() {
+        let newData ={}
 
-        e.preventDefault();
-        this.handleClickOnSubmit(this.state);
-        /!*this.handleClickOnSubmit({
-            productName: "",
-            promotionName: "",
-            offerText: "",
-            displayDevice: ""
+        newData.displayDevice= this.state.displayDevice || '';
+        newData.offerText = this.state.offerText || '';
+        newData.promotionName= this.state.promotionText || '';
+        newData.productName= this.state.selectedProduct.name || '';
+        newData.template= this.state.selectedTemplate.name || '';
 
-        });*!/
+        console.log(newData)
 
-    }*/
-
-
-   /* handleClickOnSubmit(e) {
-        e.preventDefault();
-        let productName = document.getElementById('productName').value;
-        let promotionName = document.getElementById('promotionName').value;
-        let offerText = document.getElementById('offerText').value;
-        let template = document.getElementById('template').value;
-        axios({
-            method:'post',
-            headers : new Headers(),
-            url:'http://localhost:8080/hologram/v2/image/video/generator',
-            body:JSON.stringify({productName:productName, promotionName:promotionName, offerText:offerText, template:template })
-        })
-            .then((response)=> {
-                console.log(response)
-                this.setState({res:response.data});
-            }
-            );
-    }*/
-
-    handleClickOnSubmit(e) {
-        e.preventDefault();
+        const apiUrl= 'http://localhost:8080/hologram/v2/image/video/generator';
         const  headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        let newPosts={
-            "productName" : "sprite",
 
-            "offerText" : "Buy 2 get 1 free",
-
-            "promotionName": "promo name 2",
-
-            "displayDevice" : "Hologram 1",
-
-            "template" : "ZOOM_EFFECT"
-        }
-        fetch('http://localhost:8080/hologram/v2/image/video/generator',{
-            method: 'post',
+        const option= {
+            method: 'POST',
             headers: headers,
-            body: JSON.stringify(newPosts)
-        }).then(function(response) {/*
-            this.setState({newData: response.json()});
-            console.log(this.state.newData);*/
-            return response.json()
+            body: JSON.stringify(newData)
+        };
 
-        })
-
+        fetch(apiUrl, option)
+            .then((res)=>{
+                const response =  res => res.json();
+                this.props.closeModal();
+            })
+        /* this.setState(this.initialState);*/
     }
 
     getProducts() {
@@ -141,22 +121,27 @@ class Dialog extends Component {
     }
 
 
-    handleSubmit() {
-        return true;
-    }
-
     handleChangeProduct = (selectedOption) => {
         this.setState({selectedProduct: selectedOption});
-    }
-    handleChangePromotion = (selectedOption) => {
-        this.setState({selectedTemplate: selectedOption});
     }
     handleChangeTemplate = (selectedOption) => {
         this.setState({selectedTemplate: selectedOption});
     }
 
-    render() {
 
+
+    handleChange(event) {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        this.setState({
+            [name]: value
+        })
+
+    }
+
+    render() {
+        console.log(this.state);
         const {selectedProduct, selectedTemplate, selectedLabel} = this.state;
 
         let dialog = (
@@ -164,52 +149,52 @@ class Dialog extends Component {
             <div style={dialogStyles}>
                 <h4 className="Text_Box"> Create new Hologram Promotion </h4>
                 <header className="App-header">
-                    <form>
-                        <div className="FormCenter">
-                            <div className="FormField">
-                                <label className="FormField__Label" htmlFor="productName" id="productName">Product Name</label>
-                                <Select className="TextBox"
-                                        value={selectedProduct}
-                                        onChange={this.handleChangeProduct}
-                                        options={this.state.res}
-                                />
-                            </div>
-                            <div className="FormField">
-
-                                <label className="FormField__Label" htmlFor="promotionName" id="promotionName">Promotion Name</label>
-                                <input type="text" id="promotionText" className="Placeholder_Text"
-                                       placeholder="Enter promotion text" name="promotionText"/>
-                            </div>
-                            <div className="FormField">
-                                <label className="FormField__Label" htmlFor="offerText" id="offerText">Pricing Strategy</label>
-                                <input type="text" id="offerText" className="Placeholder_Text"
-                                       placeholder="Enter offer text" name="offerText"/>
-                            </div>
-                            <div className="FormField">
-                                <label className="FormField__Label" htmlFor="template" id="template">Display Style</label>
-                                <Select className="TextBox"
-                                        value={selectedTemplate}
-                                        onChange={this.handleChangeTemplate}
-                                        options={this.state.template}
-                                />
-                            </div>
-
-                            <div className="FormField">
-                                <button className="Right_FormField_CancelButton mr-10"
-                                        onClick={this.toggleModal}>Cancel
-                                </button>
-                                <button className="Right_FormField_ApplyButton mr-10"
-                                        onClick={this.handleClickOnSubmit}>Apply</button>
-
-
-                            </div>
-
+                    <div className="FormCenter">
+                        <div className="FormField">
+                            <label className="FormField__Label" htmlFor="productName" >Product Name</label>
+                            <Select className="TextBox"
+                                    name="productName"
+                                    value={selectedProduct}
+                                    onChange={this.handleChangeProduct}
+                                    options={this.state.res}
+                            />
                         </div>
-                        <div className="Form_Aside">
+                        <div className="FormField">
 
+                            <label className="FormField__Label" htmlFor="promotionName" id="promotionName">Promotion Name</label>
+                            <input type="text" id="promotionText" className="Placeholder_Text"
+                                   placeholder="Enter promotion text" name="promotionText" onChange={this.handleChange}/>
+                        </div>
+                        <div className="FormField">
+                            <label className="FormField__Label" htmlFor="offerText" id="offerText">Pricing Strategy</label>
+                            <input type="text" id="offerText" className="Placeholder_Text"
+                                   placeholder="Enter offer text" name="offerText" onChange={this.handleChange}/>
+                        </div>
+                        <div className="FormField">
+                            <label className="FormField__Label" htmlFor="template" >Display Style</label>
+                            <Select className="TextBox"
+                                    name="template"
+                                    value={selectedTemplate}
+                                    onChange={this.handleChangeTemplate}
+                                    options={this.state.template}
+                            />
+                        </div>
+                        <div className="FormField">
+                            <label className="FormField__Label" htmlFor="displayDevice" id="displayDevice">Display Device</label>
+                            <input type="text" id="displayDevice" className="Placeholder_Text"
+                                   placeholder="Enter display device" name="displayDevice" onChange={this.handleChange}/>
                         </div>
 
-                    </form>
+                        <div className="FormField">
+                            <button className="Right_FormField_ApplyButton mr-10" onClick={this.handleSubmit}>Apply
+                            </button>
+                        </div>
+
+                    </div>
+                    <div className="Form_Aside">
+
+                    </div>
+
 
 
                 </header>

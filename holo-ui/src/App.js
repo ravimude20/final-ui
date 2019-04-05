@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import Header from './Header'
 import SecondHeader from './SecondHeader'
-import ReactTable from 'react-table'
 import "react-table/react-table.css"
 import Dialog from './Dialog'
 
 import {BrowserRouter as Router} from 'react-router-dom'
-
 
 class App extends Component {
 
@@ -20,8 +18,18 @@ class App extends Component {
         }
     }
 
+    closeModal = () =>{
 
+        this.setState({isOpen:false})
+        this.getData();
+    }
     componentDidMount() {
+        this.getData();
+
+
+    }
+    getData()
+    {
         const url = "http://localhost:8080/hologram/v2/get/playList";
         console.log(this.state.counter);
         fetch(url, {
@@ -33,7 +41,6 @@ class App extends Component {
             this.state.counter = this.state.counter + 1;
             console.log(this.state.counter);
         }
-
     }
 
     /*deleteContact (header) {
@@ -46,87 +53,7 @@ class App extends Component {
     }*/
 
     render() {
-        const columns = [
-
-            {
-                id: "checkbox",
-                accessor: "",
-                Cell: ({original}) => {
-                    return (
-                        <input
-                            type="checkbox"
-                            className="checkbox"
-                        />
-                    );
-                },
-                Header: x => {
-                    return (
-                        <input
-                            type="checkbox"
-                            className="checkbox"
-                            checked={this.state.selectAll === 1}
-                        />
-                    );
-                },
-                sortable: false,
-                width: 45
-            },
-            {
-                Header: "Image",
-                accessor: "imageLink",
-                Cell: ({original}) => {
-                    return (
-                        <img height={34} src={this.state.posts[0].imageLink} alt={"img"}/>
-                    );
-                },
-                width:65,
-
-                paddingLeft: "inherit"
-
-
-            },
-            {
-                Header: "Product Name",
-                accessor: "productName",
-                width: 150,
-                paddingTop: 10,
-                style: {
-
-                    textAlign: "left",
-                    fontFamily: "'Roboto-Medium', 'Roboto Medium', 'Roboto'"
-                }
-            },
-            {
-                Header: "Promotion Name",
-                accessor: "promotionName",
-                width: 180,
-                paddingTop: 5,
-                style: {
-
-                    textAlign: "left",
-                    fontFamily: "'Roboto-Medium', 'Roboto Medium', 'Roboto'"
-                }
-            },
-            {
-                Header: "Pricing Strategy",
-                accessor: "offerText",
-                width: 200,
-                style: {
-                    textAlign: "left",
-                    fontFamily: "'Roboto-Medium', 'Roboto Medium', 'Roboto'"
-                }
-            },
-            {
-                Header: "Display Device",
-                accessor: "displayDevice",
-                /*width: 100,*/
-                style: {
-                    textAlign: "left",
-                    fontFamily: "'Roboto-Medium', 'Roboto Medium', 'Roboto'"
-                }
-            }
-
-        ]
+        const {loading} = this.state;
         return (
             <Router>
                 <div>
@@ -154,20 +81,52 @@ class App extends Component {
 
 
                     <SecondHeader/>
-                    <Dialog isOpen={this.state.isOpen} handleClickOnCancel={(e) => this.setState({isOpen: false})}/>
+                    <Dialog isOpen={this.state.isOpen} closeModal={this.closeModal} handleClickOnCancel={(e) => this.setState({isOpen: false})}>
+
+                    </Dialog>
                 </div>
 
-                <ReactTable
+                <table cellPadding={10}
+                       className="tableFont">
 
-                    posts={this.state.posts}
-                    columns={columns}
-                    data={this.state.posts}
-                    noDataText="0 hologram promotion in queue"
-                    showPagination={false}
-                    style={{backgroundColor: "rgb(215, 228,234,1)"}}
-                >
+                    <tr>
+                        <th className="rowFont">
+                            Select
+                        </th>
+                        <th className="rowFont">
+                            Image
+                        </th>
+                        <th className="rowFont">
+                            Product Name
+                        </th>
+                        <th className="rowFont">
+                            Promotion Name
+                        </th>
+                        <th className="rowFont">
+                            Pricing Strategy
+                        </th>
+                        <th className="lastColumnFont" >
+                            Display Device
+                        </th>
 
-                </ReactTable>
+                    </tr>
+                    { this.state.posts.map((e)=>
+                        <tr className="rowFont">
+                            <td>
+                                <input
+                                    type="checkbox"
+                                    name="tes"
+                                    className="checkbox"
+                                />
+                            </td>
+                            <td><img height={34} src={e.imageLink} alt={"img"} ></img></td>
+                            <td>{e.productName}</td>
+                            <td>{e.promotionName}</td>
+                            <td>{e.offerText}</td>
+                            <td>{e.displayDevice}</td>
+                        </tr>
+                    )}
+                </table>
             </Router>
 
         )
